@@ -288,11 +288,11 @@ function showhelp() {
     ':history - list current session history',
     ':about',
     '',
-    'Directions to <a href="' + baseURL + '/inject.html">inject</a> JS Console in to any page (useful for mobile debugging)'
+    'Directions to <a href="' + baseURL + '/inject.html">inject</a> CoffeeConsole in to any page (useful for mobile debugging)'
   ];
     
   if (injected) {
-    commands.push(':close - to hide the JS Console');
+    commands.push(':close - to hide the console');
   }
   
   // commands = commands.concat([
