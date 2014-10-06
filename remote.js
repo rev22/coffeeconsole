@@ -67,7 +67,7 @@ function stringify(o, simple) {
 // }
 
 function getRemoteScript() {
-  return document.getElementById('jscremote') || document.getElementById('coffeeconsole');
+  return document.getElementById('coffeeconsoleremote') || document.getElementById('coffeeconsole');
 }
 
 var last = getRemoteScript();

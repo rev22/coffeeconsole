@@ -1,7 +1,7 @@
 (function (window, document) {
   var iframe, doc;
 
-  var baseURL = document.getElementById('jscinject').src.replace('/inject.js', '');
+  var baseURL = document.getElementById('coffeeconsoleinject').src.replace('/inject.js', '');
 
   window.COFFEECONSOLE = {
     contentWindow: window,

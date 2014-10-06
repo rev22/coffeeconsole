@@ -665,7 +665,7 @@ var exec = document.getElementById('exec'),
           sse = new EventSource('/remote/' + id + '/log');
           sse.onopen = function () {
             remoteId = id;
-            info('Connected to "' + id + '"\n\n<script id="jscremote" src="' + baseURL + '/remote.js?' + id + '"></script>');
+            info('Connected to "' + id + '"\n\n<script id="coffeeconsoleremote" src="' + baseURL + '/remote.js?' + id + '"></script>');
           };
 
           sse.onmessage = function (event) {
