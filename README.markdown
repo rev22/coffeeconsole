@@ -46,9 +46,9 @@ from jsconsole, but should work equivalently for coffeeconsole)
 
 You can read the MIT-LICENSE file for licensing information.
 
-Coffeeconsole was created by [Michele Bini (rev22)](http://rev22.github.io)
+Coffeeconsole was forked from JS Console by [Michele Bini (rev22)](http://rev22.github.io)
 
-JS Console was originally built by [Remy Sharp (@rem)](http://twitter.com/remy)
+[JS Console](https://github.com/remy/jsconsole) was originally built by [Remy Sharp (@rem)](http://twitter.com/remy)
 
 In addition the following contributors helped to create jsconsole/coffeeconsole (ordered by first contribution, according to the [Git repository log](https://github.com/rev22/coffeeconsole/commits/gh-pages)):
 - [Dominic Mitchell](https://github.com/happygiraffe)
