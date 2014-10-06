@@ -110,7 +110,12 @@ function run(cmd) {
     return ['info', 'sent remote command'];
   } else {
     try {
-      if ('CoffeeScript' in sandboxframe.contentWindow) cmd = sandboxframe.contentWindow.CoffeeScript.compile(cmd, {bare:true});
+      if ('CoffeeScript' in window) {
+        cmd = window.CoffeeScript.compile(cmd, {bare:true});
+      } else if ('CoffeeScript' in sandboxframe.contentWindow) {
+        /* Maybe this should be removed or made optional */
+        cmd = sandboxframe.contentWindow.CoffeeScript.compile(cmd, {bare:true});
+      }
       rawoutput = sandboxframe.contentWindow.eval(cmd);
     } catch (e) {
       rawoutput = e.message;
@@ -619,7 +624,6 @@ var exec = document.getElementById('exec'),
         mootools: 'http://ajax.googleapis.com/ajax/libs/mootools/1/mootools-yui-compressed.js',
         underscore: 'http://documentcloud.github.com/underscore/underscore-min.js',
         rightjs: 'http://rightjs.org/hotlink/right.js',
-        coffeescript: 'http://jashkenas.github.com/coffee-script/extras/coffee-script.js',
         yui: 'http://yui.yahooapis.com/3.2.0/build/yui/yui-min.js'
     },
     body = document.getElementsByTagName('body')[0],
