@@ -1,7 +1,7 @@
 {
-  "name": "jsconsole",
+  "name": "coffeeconsole",
   "version": "1.1.1",
-  "author": "Remy Sharp <remy@leftlogic.com>",
+  "author": "Michele Bini <michele.bini@gmail.com>; Remy Sharp <remy@leftlogic.com>",
   "dependencies": {
     "connect": "1.8.x",
     "node-uuid": "1.1.0"

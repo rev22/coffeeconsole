@@ -1,6 +1,6 @@
 (function (window) {
 
-var baseURL = window.top.JSCONSOLE ? window.top.JSCONSOLE.baseURL : window.location.href.split(/[#?]/)[0].replace(/\/[^\/]*$/, '');
+var baseURL = window.top.COFFEECONSOLE ? window.top.COFFEECONSOLE.baseURL : window.location.href.split(/[#?]/)[0].replace(/\/[^\/]*$/, '');
 
 function sortci(a, b) {
   return a.toLowerCase() < b.toLowerCase() ? -1 : 1;
@@ -605,8 +605,8 @@ var exec = document.getElementById('exec'),
     form = exec.form || {},
     output = document.getElementById('output'),
     cursor = document.getElementById('exec'),
-    injected = typeof window.top['JSCONSOLE'] !== 'undefined',
-    sandboxframe = injected ? window.top['JSCONSOLE'] : document.createElement('iframe'),
+    injected = typeof window.top['COFFEECONSOLE'] !== 'undefined',
+    sandboxframe = injected ? window.top['COFFEECONSOLE'] : document.createElement('iframe'),
     sandbox = null,
     fakeConsole = 'window.top._console',
     history = getHistory(),
