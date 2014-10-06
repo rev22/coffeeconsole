@@ -31,9 +31,9 @@ function remoteServer(app) {
   });
 
   app.post('/remote/:id/log', function (req, res) {
-    // post made to send log to jsconsole
+    // post made to send log to coffeeconsole
     var id = req.params.id;
-    // passed over to Server Sent Events on jsconsole.com
+    // passed over to Server Sent Events on the coffeeconsole server
     if (sessions.log[id]) {
       sessions.log[id].write('data: ' + req.body.data + '\neventId:' + (++eventid) + '\n\n');
 

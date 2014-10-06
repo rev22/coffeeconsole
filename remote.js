@@ -1,9 +1,9 @@
 ;(function () {
 
-// 1. create iframe pointing to script on jsconsole.com domain
+// 1. create iframe pointing to coffeeconsole script
 // 2. create console object with: log, dir, etc?
 // 3. console.log runs postMessage with json.stringified content
-// 4. jsconsole.com/remote/?id.onMessage = send to server, and wait for response. 
+// 4. coffeeconsole../remote/?id.onMessage = send to server, and wait for response. 
 
 function sortci(a, b) {
   return a.toLowerCase() < b.toLowerCase() ? -1 : 1;
@@ -67,7 +67,7 @@ function stringify(o, simple) {
 // }
 
 function getRemoteScript() {
-  return document.getElementById('jscremote') || document.getElementById('jsconsole');
+  return document.getElementById('jscremote') || document.getElementById('coffeeconsole');
 }
 
 var last = getRemoteScript();
@@ -185,8 +185,8 @@ function warnUsage() {
     sessionStorage.getItem('foo');
     useSS = true;
   } catch (e) {}
-  if (!(useSS ? sessionStorage.jsconsole : window.name)) {
-    if (useSS) sessionStorage.jsconsole = 1; else window.name = 1;
+  if (!(useSS ? sessionStorage.coffeeconsole : window.name)) {
+    if (useSS) sessionStorage.coffeeconsole = 1; else window.name = 1;
     alert('You will see this warning once per session.\n\nYou are using a remote control script on this site - if you accidently push it to production, anyone will have control of your visitor\'s browser. Remember to remove this script.');
   }
 }
