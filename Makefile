@@ -15,5 +15,5 @@ clean:
 %.js: %.coffee
 	coffee -c $<
 
-coffee-script.js: ../reflective-coffeescript/extras/coffee-script.js
+coffee-script.js: ../../reflective-coffeescript/extras/coffee-script.js
 	cp -av $< $@
