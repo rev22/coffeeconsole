@@ -1,0 +1,13 @@
+{
+	"name": "CoffeeConsole for Chrome",
+	"version": "0.1",
+	"description": "Adds CoffeeConsole to your chrome pages",
+	"content_scripts": [
+		{
+			"matches": ["https://*/*"],
+			"js": ["inject.js"]
+		}
+	],
+	"manifest_version" : 2,
+	"icons": { "128": "coffeeconsole.png" }
+}
