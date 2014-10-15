@@ -254,7 +254,6 @@
   };
   echo = function(cmd) {
     var i, len, li, lis;
-    li = void 0;
     lis = void 0;
     len = void 0;
     i = void 0;
@@ -281,7 +280,6 @@
   };
   info = function(cmd) {
     var li;
-    li = void 0;
     li = document.createElement("li");
     li.className = "info";
     li.innerHTML = "<span class=\"gutter\"></span><div>" + cleanse(cmd) + "</div>";

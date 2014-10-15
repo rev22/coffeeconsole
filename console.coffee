@@ -1,4 +1,4 @@
-((window) ->
+((window)->
   baseURL = undefined
   ccCache = undefined
   ccPosition = undefined
@@ -31,11 +31,11 @@
   dblTapTimer = undefined
   taps = undefined
   e = undefined
-  sortci = (a, b) ->
+  sortci = (a, b)->
     (if a.toLowerCase() < b.toLowerCase() then -1 else 1)
   
   # custom because I want to be able to introspect native browser objects *and* functions
-  stringify = (o, simple, visited) ->
+  stringify = (o, simple, visited)->
     do([e] = [ ])=>
       json = undefined
       i = undefined
@@ -120,14 +120,14 @@
           json = o + "" # should look like an object
         catch e
       json
-  cleanse = (s) ->
-    (s or "").replace /[<&]/g, (m) ->
+  cleanse = (s)->
+    (s or "").replace /[<&]/g, (m)->
       {
         "&": "&amp;"
         "<": "&lt;"
       }[m]
 
-  run = (cmd) ->
+  run = (cmd)->
     rawoutput = undefined
     className = undefined
     internalCmd = undefined
@@ -172,7 +172,7 @@
         className
         cleanse(stringify(rawoutput))
       ]
-  post = (cmd, blind, response) -> # passed in when echoing from remote console
+  post = (cmd, blind, response)-> # passed in when echoing from remote console
     do([e] = [ ])=>
       el = undefined
       li = undefined
@@ -212,7 +212,7 @@
             catch e
       pos = history.length
       return
-  log = (msg, className) ->
+  log = (msg, className)->
     li = undefined
     div = undefined
     li = document.createElement("li")
@@ -224,8 +224,7 @@
     li.appendChild div
     appendLog li
     return
-  echo = (cmd) ->
-    li = undefined
+  echo = (cmd)->
     lis = undefined
     len = undefined
     i = undefined
@@ -249,8 +248,7 @@
     # logAfter = output.querySelector('li.echo') || null;
     appendLog li, true
     return
-  info = (cmd) ->
-    li = undefined
+  info = (cmd)->
     li = document.createElement("li")
     li.className = "info"
     li.innerHTML = "<span class=\"gutter\"></span><div>" + cleanse(cmd) + "</div>"
@@ -259,7 +257,7 @@
     # appendLog(li, true);
     appendLog li
     return
-  appendLog = (el, echo) ->
+  appendLog = (el, echo)->
     if echo
       unless output.firstChild
         output.appendChild el
@@ -275,7 +273,7 @@
       output.insertBefore el, (if logAfter then logAfter else output.lastChild.nextSibling) #  ? output.lastChild.nextSibling : output.firstChild
     return
   # }
-  changeView = (event) ->
+  changeView = (event)->
     do([e] = [ ])=>
       which = undefined
       return  if false and enableCC
@@ -296,7 +294,7 @@
 
         cursor.focus()
         false
-  internalCommand = (cmd) ->
+  internalCommand = (cmd)->
     parts = undefined
     c = undefined
     parts = []
@@ -328,7 +326,7 @@
       #   'shift+enter - to run command in multiline mode'
       # ]);
       commands.join "\n"
-  load = (url) ->
+  load = (url)->
     if navigator.onLine
       if arguments.length > 1 or libraries[url] or url.indexOf(".js") isnt -1
         loadScript.apply this, arguments
@@ -342,7 +340,7 @@
     i = 0
 
     while i < arguments.length
-      ((url) ->
+      ((url)->
         script = document.createElement("script")
         script.src = url
         script.onload = ->
@@ -359,7 +357,7 @@
       ) libraries[arguments[i]] or arguments[i]
       i++
     "Loading script..."
-  loadDOM = (url) ->
+  loadDOM = (url)->
     doc = undefined
     script = undefined
     cb = undefined
@@ -367,7 +365,7 @@
     script = document.createElement("script")
     cb = "loadDOM" + +new Date
     script.src = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22" + encodeURIComponent(url) + "%22&format=xml&callback=" + cb
-    window[cb] = (yql) ->
+    window[cb] = (yql)->
       do([e] = [ ])=>
         html = undefined
         if yql.results.length
@@ -385,7 +383,7 @@
 
     document.body.appendChild script
     "Loading url into DOM..."
-  checkTab = (evt) ->
+  checkTab = (evt)->
     t = undefined
     ss = undefined
     se = undefined
@@ -443,9 +441,9 @@
       evt.preventDefault()
       t.selectionStart = t.selectionEnd = ss + 4
     return
-  trim = (s) ->
+  trim = (s)->
     (s or "").replace /^\s+|\s+$/g, ""
-  getProps = (cmd, filter) ->
+  getProps = (cmd, filter)->
     do([e] = [ ])=>
       surpress = undefined
       props = undefined
@@ -485,7 +483,7 @@
       else
         props = ccCache[cmd]
       props
-  codeComplete = (event) ->
+  codeComplete = (event)->
     cmd = undefined
     parts = undefined
     which = undefined
@@ -563,7 +561,7 @@
       history
   
   # I should do this onunload...but I'm being lazy and hacky right now
-  setHistory = (history) ->
+  setHistory = (history)->
     do([e] = [ ])=>
       return  if typeof JSON is "undefined"
       try
@@ -589,7 +587,7 @@
   
   # tweaks to interface to allow focus
   # if (!('autofocus' in document.createElement('input'))) exec.focus();
-  whichKey = (event) ->
+  whichKey = (event)->
     keys = undefined
     keys =
       38: 1
@@ -607,7 +605,7 @@
       "U+0026": 55
 
     keys[event.keyIdentifier] or event.which or event.keyCode
-  setCursorTo = (str) ->
+  setCursorTo = (str)->
     rows = undefined
     str = (if enableCC then cleanse(str) else str)
     exec.value = str
@@ -628,7 +626,7 @@
   # what I need to do is rip out the contenteditable and replace it with something entirely different
   
   # setCursorTo(cursor.innerText);
-  findNode = (list, node) ->
+  findNode = (list, node)->
     do([pos] = [ ])=>
       pos = 0
       i = 0
@@ -651,7 +649,7 @@
   # cycles available completions
   
   # window.scrollTo(0,0);
-  completeCode = (focus) ->
+  completeCode = (focus)->
     tmp = undefined
     l = undefined
     range = undefined
@@ -706,7 +704,7 @@
         i++
       return
 
-    props: (obj) ->
+    props: (obj)->
       do([e] = [ ])=>
         props = undefined
         realObj = undefined
@@ -719,7 +717,7 @@
 
         props
 
-  (if document.addEventListener then window.addEventListener("message", (event) ->
+  (if document.addEventListener then window.addEventListener("message", (event)->
     post event.data
     return
   , false) else window.attachEvent("onmessage", ->
@@ -773,11 +771,11 @@
       else
         "noop"
 
-    listen: (id) ->
+    listen: (id)->
       script = document.createElement("script")
       callback = "_cb" + +new Date
       script.src = "/remote/" + (id or "") + "?callback=" + callback
-      window[callback] = (id) ->
+      window[callback] = (id)->
         remoteId = id
         sse.close()  if sse isnt null
         sse = new EventSource("/remote/" + id + "/log")
@@ -786,7 +784,7 @@
           info "Connected to \"" + id + "\"\n\n<script id=\"coffeeconsoleremote\" src=\"" + baseURL + "/remote.js?" + id + "\"></script>"
           return
 
-        sse.onmessage = (event) ->
+        sse.onmessage = (event)->
           data = JSON.parse(event.data)
           if data.type and data.type is "error"
             post data.cmd, true, [
@@ -840,7 +838,7 @@
     sandbox.close()
   cursor.focus()
   output.parentNode.tabIndex = 0
-  output.ontouchstart = output.onclick = (event) ->
+  output.ontouchstart = output.onclick = (event)->
     command = undefined
     event = event or window.event
     if event.target.nodeName is "A" and event.target.className is "permalink"
@@ -853,7 +851,7 @@
     window.scrollTo 0, 0
     return
 
-  exec.onkeyup = (event) ->
+  exec.onkeyup = (event)->
     which = undefined
     which = whichKey(event)
     if enableCC and which isnt 9 and which isnt 16
@@ -865,7 +863,7 @@
     return
 
   if enableCC
-    cursor.__onpaste = (event) ->
+    cursor.__onpaste = (event)->
       setTimeout (->
         cursor.innerHTML = cursor.innerText
         return
@@ -875,7 +873,7 @@
     0: 1
     16: 1
 
-  exec.onkeydown = (event) ->
+  exec.onkeydown = (event)->
     keys = undefined
     wide = undefined
     which = undefined
@@ -942,7 +940,7 @@
     return
 
   if enableCC and iOSMobile
-    fakeInput.onkeydown = (event) ->
+    fakeInput.onkeydown = (event)->
       which = undefined
       removeSuggestion()
       which = whichKey(event)
@@ -952,7 +950,7 @@
         cursor.innerHTML = ""
         false
 
-    fakeInput.onkeyup = (event) ->
+    fakeInput.onkeyup = (event)->
       which = undefined
       cursor.innerHTML = cleanse(@value)
       which = whichKey(event)
@@ -967,7 +965,7 @@
     fakeInputFocused = false
     dblTapTimer = null
     taps = 0
-    form.addEventListener "touchstart", (event) ->
+    form.addEventListener "touchstart", (event)->
       if ccPosition isnt false
         event.preventDefault()
         clearTimeout dblTapTimer
@@ -985,14 +983,14 @@
           , 200)
       false
 
-  form.onsubmit = (event) ->
+  form.onsubmit = (event)->
     event = event or window.event
     event.preventDefault and event.preventDefault()
     removeSuggestion()
     post exec.textContent or exec.value
     false
 
-  document.onkeydown = (event) ->
+  document.onkeydown = (event)->
     which = undefined
     event = event or window.event
     which = event.which or event.keyCode
@@ -1011,7 +1009,7 @@
     post decodeURIComponent(window.location.search.substr(1))
   else
     post ":help", true
-  window.onpopstate = (event) ->
+  window.onpopstate = (event)->
     setCursorTo event.state or ""
     return
 
