@@ -1,5 +1,5 @@
 ((window)->
-  version = "0.0.3"
+  version = "0.0.25"
 
   ccfusor = {
     version: "CoffeeConsole unknown:#{version}"
@@ -41,6 +41,10 @@
   dblTapTimer = undefined
   taps = undefined
   e = undefined
+
+  reportError = (x)-> x() catch err
+    alert err.toString()
+
   sortci = (a, b)->
     (if a.toLowerCase() < b.toLowerCase() then -1 else 1)
   
@@ -827,13 +831,9 @@
   fakeInput = null
   iOSMobile = navigator.userAgent.indexOf("AppleWebKit") isnt -1 and navigator.userAgent.indexOf("Mobile") isnt -1
   enableCC = navigator.userAgent.indexOf("AppleWebKit") isnt -1 and navigator.userAgent.indexOf("Mobile") is -1 or navigator.userAgent.indexOf("OS 5_") isnt -1
-  if enableCC
+  enableCC then reportError =>
     exec.parentNode.innerHTML =
       """
-      <div>
-      <span style="display:inline-block;width:initial">Load file: </span>
-      <input id="fileupload" type="file" style="min-width:10em;display:inline-block;width:initial" />
-      </div>
       <div autofocus id="exec" autocapitalize="off" spellcheck="false">
         <span id="cursor" spellcheck="false" autocapitalize="off" autocorrect="off"
       #{ iOSMobile then "" else " contenteditable" }
@@ -842,11 +842,6 @@
       """
     exec = document.getElementById("exec")
     cursor = document.getElementById("cursor")
-    fileupload = document.getElementById("fileupload")
-    fileupload.onchange = ->
-      (file = fileupload.files?[0])? then
-        # fileName fileSize getAsBinary getAsText
-        # alert "ok!!!"
   if enableCC and iOSMobile
     fakeInput = document.createElement("input")
     fakeInput.className = "fakeInput"
@@ -877,7 +872,7 @@
     window.scrollTo 0, 0
     return
 
-  exec.onkeyup = (event)->
+  exec.onkeyup = (event)-> reportError =>
     which = undefined
     which = whichKey(event)
     if enableCC and which isnt 9 and which isnt 16
@@ -899,7 +894,7 @@
     0: 1
     16: 1
 
-  exec.onkeydown = (event)->
+  exec.onkeydown = (event)-> reportError =>
     keys = undefined
     wide = undefined
     which = undefined
@@ -1016,7 +1011,7 @@
     post exec.textContent or exec.value
     false
 
-  document.onkeydown = (event)->
+  document.onkeydown = (event)-> reportError =>
     which = undefined
     event = event or window.event
     which = event.which or event.keyCode
@@ -1027,7 +1022,7 @@
     else output.parentNode.scrollTop += 5 + output.parentNode.offsetHeight * ((if event.shiftKey then -1 else 1))  if event.target is output.parentNode and which is 32
     changeView event
 
-  exec.onclick = ->
+  exec.onclick = -> reportError =>
     cursor.focus()
     return
 
