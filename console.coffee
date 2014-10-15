@@ -911,17 +911,17 @@
         if history[pos]? and history[pos] isnt ""
           removeSuggestion()
           setCursorTo history[pos]
-          false
+          return false
         else if pos is history.length
           removeSuggestion()
           setCursorTo ""
-          false
+          return false
     else if (which is 13 or which is 10) and event.shiftKey is false
       removeSuggestion()
       if event.shiftKey is true or event.metaKey or event.ctrlKey or not wide
         command = exec.textContent or exec.value
         post command  if command.length
-        false
+        return false
     else if (which is 13 or which is 10) and not enableCC and event.shiftKey is true
       rows = exec.value.match(/\n/g)
       rows = (if rows? then rows.length + 2 else 2)
@@ -937,7 +937,7 @@
     else if enableCC
       if ccPosition isnt false and which is 9
         codeComplete event
-        false
+        return false
       else removeSuggestion()  if ccPosition isnt false and cursor.nextSibling and not modifierkeys[which]
     return
 
