@@ -1,4 +1,14 @@
 ((window)->
+  version = "0.0.3"
+
+  ccfusor = {
+    version: "CoffeeConsole unknown:#{version}"
+  }
+
+  global?.ccfusor = ccfusor
+  window?.top?.ccfusor = ccfusor
+  window?.ccfusor = ccfusor
+  
   baseURL = undefined
   ccCache = undefined
   ccPosition = undefined
@@ -818,9 +828,25 @@
   iOSMobile = navigator.userAgent.indexOf("AppleWebKit") isnt -1 and navigator.userAgent.indexOf("Mobile") isnt -1
   enableCC = navigator.userAgent.indexOf("AppleWebKit") isnt -1 and navigator.userAgent.indexOf("Mobile") is -1 or navigator.userAgent.indexOf("OS 5_") isnt -1
   if enableCC
-    exec.parentNode.innerHTML = "<div autofocus id=\"exec\" autocapitalize=\"off\" spellcheck=\"false\"><span id=\"cursor\" spellcheck=\"false\" autocapitalize=\"off\" autocorrect=\"off\"" + ((if iOSMobile then "" else " contenteditable")) + "></span></div>"
+    exec.parentNode.innerHTML =
+      """
+      <div>
+      <span style="display:inline-block;width:initial">Load file: </span>
+      <input id="fileupload" type="file" style="min-width:10em;display:inline-block;width:initial" />
+      </div>
+      <div autofocus id="exec" autocapitalize="off" spellcheck="false">
+        <span id="cursor" spellcheck="false" autocapitalize="off" autocorrect="off"
+      #{ iOSMobile then "" else " contenteditable" }
+      ></span>
+      </div>
+      """
     exec = document.getElementById("exec")
     cursor = document.getElementById("cursor")
+    fileupload = document.getElementById("fileupload")
+    fileupload.onchange = ->
+      (file = fileupload.files?[0])? then
+        # fileName fileSize getAsBinary getAsText
+        # alert "ok!!!"
   if enableCC and iOSMobile
     fakeInput = document.createElement("input")
     fakeInput.className = "fakeInput"

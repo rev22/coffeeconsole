@@ -13,7 +13,7 @@ clean:
 	(sh -c "coffee $< >$@.new" && mv $@.new $@ && touch -r $< $@) || rm -f $@
 
 %.js: %.coffee
-	coffee -c $<
+	coffee -bc $<
 
 coffee-script.js: ../reflective-coffeescript/extras/coffee-script.js
 	cp -av $< $@
