@@ -1,5 +1,5 @@
 ((window)->
-  version = "0.0.25"
+  version = "0.0.31"
 
   ccfusor = {
     version: "CoffeeConsole unknown:#{version}"
@@ -831,8 +831,13 @@
   fakeInput = null
   iOSMobile = navigator.userAgent.indexOf("AppleWebKit") isnt -1 and navigator.userAgent.indexOf("Mobile") isnt -1
   enableCC = navigator.userAgent.indexOf("AppleWebKit") isnt -1 and navigator.userAgent.indexOf("Mobile") is -1 or navigator.userAgent.indexOf("OS 5_") isnt -1
-  if enableCC
-    exec.parentNode.innerHTML = "<div autofocus id=\"exec\" autocapitalize=\"off\" spellcheck=\"false\"><span id=\"cursor\" spellcheck=\"false\" autocapitalize=\"off\" autocorrect=\"off\"" + ((if iOSMobile then "" else " contenteditable")) + "></span></div>"
+  if enableCC then reportError =>
+    exec.parentNode.innerHTML =
+      """
+      <div autofocus id=\"exec\" class=\"exec\" autocapitalize=\"off\" spellcheck=\"false\"><span id=\"cursor\" class=\"cursor\" spellcheck=\"false\" autocapitalize=\"off\" autocorrect=\"off\"#{
+        iOSMobile then "" else " contenteditable"
+      }></span></div>
+      """
     exec = document.getElementById("exec")
     cursor = document.getElementById("cursor")
   if enableCC and iOSMobile
