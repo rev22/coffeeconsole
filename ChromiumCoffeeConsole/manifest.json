@@ -1,13 +1,14 @@
 {
 	"name": "CoffeeConsole for Chrome",
 	"version": "0.1",
-	"description": "Adds CoffeeConsole to your chrome pages",
+	"description": "Adds CoffeeConsole to your Web pages in Chrome",
 	"content_scripts": [
 		{
-			"matches": ["https://*/*"],
-			"js": ["inject.js"]
+			"matches": ["https://*/*", "http://*/*", "file://*/*"],
+			"js": ["bookmarklet-ctrl-m.js"]
 		}
 	],
 	"manifest_version" : 2,
+	"web_accessible_resources": [ "inject.js", "console.js", "coffee-script.js", "console.css", "prettify.js" ],
 	"icons": { "128": "coffeeconsole.png" }
 }
