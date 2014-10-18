@@ -60,9 +60,6 @@ iframe { display: none; }
 form { padding: 5px; border-bottom: 1px solid #AAABB8; background: #E6E8F2; -webkit-box-shadow: 0px 2px 10px rgba(0,0,0,.3); -o-box-shadow: 0px 2px 10px rgba(0,0,0,.3); box-shadow: 0px 2px 10px rgba(0,0,0,.3); }
 #exec, .fakeInput { resize: none; position: absolute; left: 0; right: 0; border: 0; /*padding: 5px; */outline: 0; background: #E6E8F2; color: #000; height: 24px; line-height: 24px; overflow: hidden; }
 
-/* HACK */
-form { position: fixed; top: 0; width: 100%; z-index: 2; }
-#console { padding-top: 35px; }
 #exec, .fakeInput { position: relative; height: auto; }
 
 /* bottom position */
@@ -82,7 +79,20 @@ form { position: fixed; top: 0; width: 100%; z-index: 2; }
 #cursor { display: inline-block; height: 24px; min-width: 1px; outline: 0; top: 0; left: 0; z-index: 999;}
 
 /* HACK */
-#cursor { height: auto; white-space: pre-wrap; }
+#cursor {
+    height: auto;
+    white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+    white-space: pre-wrap;
+}
+#cursor {
+    width:100%;
+    max-width:100%;
+    max-height:5em;
+    overflow:auto;
+    overflow-x:hidden;
+    word-wrap: break-word; /* this may be necessary for certain IE versions */
+    word-break: break-all;
+}
 
 #exec, .fakeInput { cursor: text; }
 #exec .suggest { color: #999; }
