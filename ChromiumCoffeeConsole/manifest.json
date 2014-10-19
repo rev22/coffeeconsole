@@ -9,6 +9,6 @@
 		}
 	],
 	"manifest_version" : 2,
-	"web_accessible_resources": [ "inject.js", "console.js", "coffee-script.js", "console.css", "prettify.js" ],
+	"web_accessible_resources": [ "inject.js", "console.js", "coffee-script.js", "console.css", "prettify.js", "prettify.packed.js", "EventSource.js" ],
 	"icons": { "128": "coffeeconsole.png" }
 }
