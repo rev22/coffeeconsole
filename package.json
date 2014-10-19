@@ -6,6 +6,10 @@
     "connect": "1.8.x",
     "node-uuid": "1.1.0"
   },
+  "devDependencies": {
+    "coffeemake":"*",
+    "reflective-coffeescript":"*"
+  },
   "main": "server.js",
   "private": true
 }

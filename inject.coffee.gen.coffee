@@ -40,6 +40,15 @@ d =
 #
 fs = require 'fs'
 
+if fs.existsSync "index.html"
+  d = fs.readFileSync "index.html"
+  d = d.toString()
+  d = JSON.stringify(d)
+  d = d.replace /(src|href)=\\\"([^\"]*)\\\"/g, (m, a, b)->
+    "#{a}=\\\"#{
+      '#{baseURL}/' + b
+    }\\\""
+
 # fs.existsSync "" then
 
 # document 

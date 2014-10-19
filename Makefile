@@ -1,19 +1,65 @@
-TARGETS=coffee-script.js
-# TARGETS=console.js inject.js prettify.js
+CUP2PHP=xnj cup2php
+PHP2CUP=xnj php2cup_body
 
-all: $(TARGETS)
+%.php: %.in.coffee.php
+	$(CUP2PHP) $< $@
 
-clean:
-	rm -f $(TARGETS)
+%.php.coffee: %.in.php
+	$(PHP2CUP) $< $@
 
-%.html: %.html.coffee
-	rm $@; (sh -c "coffee $< >$@.new" && mv $@.new $@ && touch -r $< $@) || rm -f $@
+%.php: %.in.phpcup
+	$(CUP2PHP) $< $@
 
-%.html: %.htmlcup
-	(sh -c "coffee $< >$@.new" && mv $@.new $@ && touch -r $< $@) || rm -f $@
+%.phpcup: %.in.php
+	$(PHP2CUP) $< $@
+
+%.out.php: %.phpcup
+	$(CUP2PHP) $< $@
+
+%.out.phpcup: %.php
+	$(PHP2CUP) $< $@
+
+CUP2HTML=xnj cup2html
+HTML2CUP=xnj html2cup
+
+%.html: %.in.coffee.html
+	$(CUP2HTML) $< $@
+
+%.html.coffee: %.in.html
+	$(HTML2CUP) $< $@
+
+%.html: %.in.htmlcup
+	$(CUP2HTML) $< $@
+
+%.htmlcup: %.in.html
+	$(HTML2CUP) $< $@
+
+%.out.html: %.htmlcup
+	$(CUP2HTML) $< $@
+
+%.out.htmlcup: %.html
+	$(HTML2CUP) $< $@
+
+COFFEE=refcoffee
 
 %.js: %.coffee
-	coffee -bc $<
+	$(COFFEE) -pbc $< >$@
 
-coffee-script.js: ../reflective-coffeescript/extras/coffee-script.js
-	cp -av $< $@
+COFFEE=refcoffee
+
+%: %.gen.coffee
+	$(COFFEE) $< >$@
+
+REFCOFFEE=refcoffee
+
+%.js: %.refcoffee
+	$(REFCOFFEE) -pbc $< >$@
+
+JS2COFFEE=js2coffee
+
+%.out.coffee: %.js
+	$(JS2COFFEE) $< >$@
+
+%: %.gen.refcoffee
+	$(REFCOFFEE) $< >$@
+
