@@ -1,13 +1,13 @@
 ((window)->
-  version = "0.0.31"
+  version = "0.0.35"
 
-  ccfusor = {
+  ccFusor = {
     version: "CoffeeConsole unknown:#{version}"
   }
 
-  global?.ccfusor = ccfusor
-  window?.top?.ccfusor = ccfusor
-  window?.ccfusor = ccfusor
+  global?.ccFusor = ccFusor
+  window?.top?.ccFusor = ccFusor
+  window?.ccFusor = ccFusor
   
   baseURL = undefined
   ccCache = undefined
@@ -49,7 +49,7 @@
     (if a.toLowerCase() < b.toLowerCase() then -1 else 1)
   
   # custom because I want to be able to introspect native browser objects *and* functions
-  stringify = (o, simple, visited)->
+  ccFusor.stringify = (o, simple, visited)->
     do([e] = [ ])=>
       json = undefined
       i = undefined
@@ -87,7 +87,7 @@
         json = "["
         i = 0
         while i < o.length
-          parts.push stringify(o[i], simple, visited)
+          parts.push ccFusor.stringify(o[i], simple, visited)
           i++
         json += parts.join(", ") + "]"
         json
@@ -99,7 +99,7 @@
         names.sort sortci
         i = 0
         while i < names.length
-          parts.push stringify(names[i], `undefined`, visited) + ": " + stringify(o[names[i]], simple, visited)
+          parts.push ccFusor.stringify(names[i], `undefined`, visited) + ": " + ccFusor.stringify(o[names[i]], simple, visited)
           i++
         json += parts.join(", ") + "}"
       else if type is "[object Number]"
@@ -121,7 +121,7 @@
         i = 0
         while i < names.length
           try
-            parts.push names[i] + ": " + stringify(o[names[i]], true, visited) # safety from max stack
+            parts.push names[i] + ": " + ccFusor.stringify(o[names[i]], true, visited) # safety from max stack
           catch e
             if e.name is "NS_ERROR_NOT_IMPLEMENTED" then
           i++
@@ -184,7 +184,7 @@
         className = "error"
       [
         className
-        cleanse(stringify(rawoutput))
+        cleanse(ccFusor.stringify(rawoutput))
       ]
   post = (cmd, blind, response)-> # passed in when echoing from remote console
     do([e] = [ ])=>
@@ -698,13 +698,14 @@
   ccCache = {}
   ccPosition = false
   window._console =
+    ccFusor: ccFusor
     log: ->
       l = undefined
       i = undefined
       l = arguments.length
       i = 0
       while i < l
-        log stringify(arguments[i], true)
+        log ccFusor.stringify(arguments[i], true)
         i++
       return
 
@@ -714,7 +715,7 @@
       l = arguments.length
       i = 0
       while i < l
-        log stringify(arguments[i])
+        log ccFusor.stringify(arguments[i])
         i++
       return
 
