@@ -63,3 +63,5 @@ JS2COFFEE=js2coffee
 %: %.gen.refcoffee
 	$(REFCOFFEE) $< >$@
 
+coffee-script.js: ../../reflective-coffeescript/extras/coffee-script.js
+	cp -av $< $@
